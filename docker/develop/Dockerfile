@@ -18,13 +18,13 @@ RUN add-apt-repository -y ppa:git-core/ppa; \
 
 RUN apt-get -y --no-install-recommends install build-essential python-software-properties \
         automake libtool \
-        # dev dependencies \
+        # dev dependencies
         libssl-dev zlib1g-dev libc6-dbg golang \
-        # CircleCI dependencies \
+        # CircleCI dependencies
         git ssh tar gzip ca-certificates python3 python3-pip python3-setuptools \
-        # code coverage \
+        # code coverage
         lcov \
-        # other \
+        # other
         wget curl file unzip gdb iputils-ping vim ccache \
         gcovr cppcheck doxygen graphviz graphviz-dev; \
     apt-get -y clean
@@ -194,14 +194,14 @@ RUN git clone git://sourceware.org/git/valgrind.git /tmp/valgrind; \
 
 # install ed25519
 RUN git clone git://github.com/warchant/ed25519.git /tmp/ed25519; \
-    (cd /tmp/ed25519 ; git checkout 6b4779f737d72038c716d0ecbc0701411dff083e); \
+    (cd /tmp/ed25519 ; git checkout 56d926c4489aa7b2bb664a48294c5ee2d6e1c283); \
     cmake -DCMAKE_BUILD_TYPE=Debug -DTESTING=OFF -H/tmp/ed25519 -B/tmp/ed25519/build; \
     cmake --build /tmp/ed25519/build --target install -- -j${PARALLELISM}; \
     ldconfig; \
     rm -rf /tmp/ed25519
 
 RUN git clone https://github.com/warchant/NuDB.git /tmp/nudb; \
-    (cd /tmp/nudb; git checkout 4535601bb71c578061edd3c3c9098d828ae12b5b); \
+    (cd /tmp/nudb; git checkout 6b4779f737d72038c716d0ecbc0701411dff083e); \
     cp -R /tmp/nudb/include/nudb /usr/local/include; \
     rm -rf /tmp/nudb
 
